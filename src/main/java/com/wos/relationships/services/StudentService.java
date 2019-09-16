@@ -19,7 +19,8 @@ public class StudentService {
 	
 	// return all students
 	public List<Student> allStudents(){
-		return studentRepo.findAll();
+//		return studentRepo.findAll();
+		return studentRepo.findAllByNative();
 	}
 	
 	// create a new student
@@ -29,7 +30,8 @@ public class StudentService {
 	
 	// get a student by id
 	public Student findStudent(Long id) {
-		Optional<Student> optionalStudent = studentRepo.findById(id);
+//		Optional<Student> optionalStudent = studentRepo.findById(id);
+		Optional<Student> optionalStudent = studentRepo.findOneByNative(id);
 		if(optionalStudent.isPresent()) {
 			return optionalStudent.get();
 		} else {
