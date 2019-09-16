@@ -51,7 +51,9 @@ public class StudentInfo {
     
     //establish relationship to a student info
 	@OneToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="student_id")
+	//@JoinColumn --> Defines mapping for composite foreign keys. 
+	//It indicates that the corresponding table to this entity has a foreign_key to the referenced table.
+	@JoinColumn(name="student_id") 
 	private Student student;
 	
 	public StudentInfo(
