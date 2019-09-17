@@ -32,7 +32,7 @@ public class StudentsApi {
 	}
 	
 	// CREATE 
-	@PostMapping("/students")
+	@PostMapping("/students/create")
 	public Student create(
 			@RequestParam(value="firstName") String firstName,
 			@RequestParam(value="lastName") String lastName,

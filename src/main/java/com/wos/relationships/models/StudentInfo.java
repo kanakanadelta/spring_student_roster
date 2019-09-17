@@ -23,6 +23,7 @@ public class StudentInfo {
 	// Generate Student Info ID
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+//    @Column(nullable=false, unique=true)
     private Long id;
     
     // Generate Address
@@ -50,10 +51,16 @@ public class StudentInfo {
     private Date updatedAt;
     
     //establish relationship to a student info
-	@OneToOne(fetch=FetchType.LAZY)
+	@OneToOne(
+			fetch=FetchType.LAZY,
+			optional=false
+			)
 	//@JoinColumn --> Defines mapping for composite foreign keys. 
 	//It indicates that the corresponding table to this entity has a foreign_key to the referenced table.
-	@JoinColumn(name="student_id") 
+	@JoinColumn(
+			name="student_id",
+			nullable=false	
+			) 
 	private Student student;
 	
 	public StudentInfo(
