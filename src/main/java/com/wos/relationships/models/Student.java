@@ -9,6 +9,8 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
@@ -58,6 +60,11 @@ public class Student {
 			fetch=FetchType.LAZY // LAZY --> association is fetched when needed
 			)
 	private StudentInfo studentInfo;
+	
+	//establish relationship to dorms
+	@ManyToOne(fetch=FetchType.LAZY)
+	@JoinColumn(name="dorm_id")
+	private Dorm dorm;
 	
 	public Student(
 			String firstName,
