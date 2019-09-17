@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -73,7 +74,6 @@ public class DormsController {
 		model.addAttribute("students", noDormStudents);
 		
 		List<Student> dormStudents = dorm.getStudents();
-		System.out.println(dormStudents);
 		model.addAttribute("dormStudents", dormStudents);
 		
 		return "showdorm.jsp";
@@ -83,20 +83,34 @@ public class DormsController {
 	@PostMapping("/{id}/add")
 	public String addStudent(
 			@RequestParam(value="student")Long studentId, 
-			@PathVariable("id") Long dormId,
-			Model model) {
-		System.out.println("IN CREATE RELATIONSHIP with: " + studentId);
-
+			@PathVariable("id") Long dormId) {
+		// Retrieve student via student Id
 		Student student = studentService.findStudent(studentId);
-		System.out.println(student.getFirstName() + " " + student.getLastName());
-		
+		// Retrieve dorm via path variable ID
 		Dorm dorm = dormService.getDorm(dormId);
-		System.out.println(dorm.getName());
-		
+		// set student dorm via Setter
 		student.setDorm(dorm);
 		
+		// Update the student in DB with service
 		studentService.createOrUpdateStudent(student);
+		
+		// redirect back to the show page with new rendered list
 		return "redirect:/dorms/{id}";
+	}
+	
+	// DELETE DORM RELATIONSHIP
+	@DeleteMapping("/{id}/remove")
+	public String removeStudent(
+			@RequestParam(value="student")Long studentId, 
+			@PathVariable("id") Long dormId
+			) {
+		// Retrieve student via student Id
+		Student student = studentService.findStudent(studentId);
+		// Set dorm value as null
+		student.setDorm(null);
+		
+		studentService.createOrUpdateStudent(student);
+		return "redirect:/dorms/{id}"; 
 	}
 	
 }

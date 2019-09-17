@@ -11,6 +11,9 @@
 </head>
 <body>
 	<h1>Dormitories</h1>
+	<a href="/students">View Students</a>
+	<br />
+	<br />
 	<a href="/dorms/new">Add New Dorm</a>
 	<h2>Dormitory List:</h2>
 	<div>

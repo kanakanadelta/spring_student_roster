@@ -17,6 +17,7 @@
 	<ul>
 		<li><a href="/students/create">Add New Student</a></li>
 		<li><a href="/contacts/create">Add Contact Info</a></li>
+		<li><a href="/dorms">View Student Dormitories</a></li>
 	</ul>
 	<div id="students_table">
 		<table>

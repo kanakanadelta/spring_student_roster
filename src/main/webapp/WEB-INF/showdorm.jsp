@@ -35,7 +35,11 @@
 						<c:out value="${dS.lastName}" />
 					</td>
 					<td>
-						DELET
+						<form action="/dorms/${dorm.id}/remove" method="POST">
+							<input type="hidden" name="_method" value="delete"/>
+							<input type="hidden" name="student" value="${dS.id}"/>
+							<input type="submit" name="student" value="Delete"/>
+						</form>
 					</td>
 				</tr>
 			</c:forEach>
