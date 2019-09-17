@@ -26,7 +26,7 @@ public class DormService {
 	}
 	
 	// GET a dorm
-	public Dorm getOne(Long id) {
+	public Dorm getDorm(Long id) {
 		Optional<Dorm> optDorm = dormRepo.findById(id);
 		if(optDorm.isPresent()) {
 			return optDorm.get();

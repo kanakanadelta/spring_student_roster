@@ -135,6 +135,18 @@ public class Student {
 	}
 	
 	
+	public Dorm getDorm() {
+		return dorm;
+	}
+
+	public void setDorm(Dorm dorm) {
+		this.dorm = dorm;
+	}
+
+	public void setCreatedAt(Date createdAt) {
+		this.createdAt = createdAt;
+	}
+
 	// PERSITENCE 
 	// // runs the method right before the object is created
     @PrePersist

@@ -76,5 +76,9 @@ public class StudentService {
 		return studentRepo.findByStudentInfoIsNullAndFirstNameNotNull();
 	}
 	
+	public List<Student> getNoDorm() {
+		return studentRepo.findByDormIsNullAndFirstNameNotNull();
+	}
+	
 	// END SERVICES 
 }
