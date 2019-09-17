@@ -15,7 +15,8 @@ public interface StudentRepository extends CrudRepository<Student, Long>{
 	void save(Optional<Student> optionalStudent);
 	// method to delete a student by their id
 	void deleteById(Long id);
-	
+	// method to retrieve students with no studentinfo
+	List<Student> findByStudentInfoIsNullAndFirstNameNotNull();
 	
 	// NATIVE QUERY
 	@Query(value="SELECT * FROM students", nativeQuery = true)
@@ -23,4 +24,5 @@ public interface StudentRepository extends CrudRepository<Student, Long>{
 	
 	@Query(value="SELECT * FROM students WHERE id = ?1", nativeQuery = true)
 	Optional<Student> findOneByNative(Long id);
+
 }

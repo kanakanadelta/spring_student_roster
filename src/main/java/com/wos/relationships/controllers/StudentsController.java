@@ -48,15 +48,29 @@ public class StudentsController {
 	}
 	
 	//2. NEW - Show pages for Student Creation / Student Info Creation
+	
+	// New Student Page
 	@GetMapping("/students/create")
 	public String newStudent(@ModelAttribute("student") Student student) {
 		return "newstudent.jsp";
 	}
 	
+	//New Contact Page
+	@GetMapping("/contacts/create")
+	public String newContact(
+			@ModelAttribute("studentInfo") StudentInfo studentInfo,
+			@ModelAttribute("students")Student student,
+			Model model
+			) {
+		List<Student> noInfoStudents = studentService.getNoInfo();
+		model.addAttribute("noInfoStudents", noInfoStudents);
+		return "newcontact.jsp";
+	}
+	
 	//3. CREATE - Create new Student and/or Contact Info
 	// CREATE STUDENT
 	@PostMapping("/students")
-	public String create(@Valid @ModelAttribute("student") Student student, BindingResult result) {
+	public String createStudent(@Valid @ModelAttribute("student") Student student, BindingResult result) {
 		if(result.hasErrors()) {
 			return "newstudent.jsp";
 		} else {
@@ -64,6 +78,18 @@ public class StudentsController {
 			return "redirect:/students";
 		}
 	}
+	
+	//CREATE CONTACT
+	@PostMapping("/contacts")
+	public String createContact(@Valid @ModelAttribute("studentInfo") StudentInfo studentInfo, BindingResult result) {
+		if(result.hasErrors()) {
+			return "newcontact.jsp";
+		} else {
+			infoService.create(studentInfo);
+			return "redirect:/students";
+		}
+	}
+	
 	
 	//CREATE CONTACT INFO
 	 // METHOD HERE

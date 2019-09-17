@@ -74,4 +74,11 @@ public class StudentsApi {
 		return student;
 	}
 	
+	// Extra Queries
+	@GetMapping("/students/noInfo")
+	public List<Student> findNoInfo() {
+		List<Student> students = studentService.getNoInfo();
+		return students;
+	}
+	
 }

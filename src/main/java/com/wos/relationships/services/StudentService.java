@@ -71,6 +71,10 @@ public class StudentService {
 		}
 	}
 	
+	// EXTRA QUERIES
+	public List<Student> getNoInfo() {
+		return studentRepo.findByStudentInfoIsNullAndFirstNameNotNull();
+	}
 	
 	// END SERVICES 
 }
