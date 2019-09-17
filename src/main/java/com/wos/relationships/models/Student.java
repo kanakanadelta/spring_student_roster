@@ -1,6 +1,7 @@
 package com.wos.relationships.models;
 
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -10,6 +11,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.PrePersist;
@@ -61,10 +64,20 @@ public class Student {
 			)
 	private StudentInfo studentInfo;
 	
-	//establish relationship to dorms
+	//establish Many to One relationship to dorms
 	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="dorm_id")
 	private Dorm dorm;
+	
+	
+	//establish Many To Many relationship to courses via Enrollment join table
+	@ManyToMany(fetch=FetchType.LAZY)
+	@JoinTable(
+			name="enrollments",
+			joinColumns = @JoinColumn(name = "student_id"),
+			inverseJoinColumns = @JoinColumn(name = "course_id")
+			)
+	private List<Course> courses;
 	
 	public Student(
 			String firstName,
