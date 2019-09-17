@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
+import com.wos.relationships.models.Student;
 import com.wos.relationships.models.StudentInfo;
 import com.wos.relationships.repositories.StudentInfoRepository;
 
@@ -19,6 +20,21 @@ public class StudentInfoService {
 	// read - all - show all students' info
 	public List<StudentInfo> allInfo() {
 		return infoRepo.findAll();
+	}
+	
+	// read - all w/ joined table
+	public List<Object[]> joinInfo() {
+		List<Object[]> infoTable = infoRepo.findAllJoined();
+		
+		//unpackage and cast data
+		for(Object[] row : infoTable) {
+			StudentInfo info  = (StudentInfo) row[0];
+			Student student = (Student) row[1];
+			System.out.println(info.getCity());
+			System.out.println(student.getFirstName());
+		}
+		
+		return infoTable;
 	}
 	
 	// read - one - show a specific student information

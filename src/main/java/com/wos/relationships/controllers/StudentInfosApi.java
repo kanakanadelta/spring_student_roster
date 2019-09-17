@@ -30,6 +30,12 @@ public class StudentInfosApi {
 		return infoService.allInfo();
 	}
 	
+	@GetMapping("/join")
+	public List<Object[]> joinedTable(){
+		
+		return infoService.joinInfo();
+	}
+	
 	// CREATE - give a student their contact info via foreign key assignment
 	@PostMapping("/create")
 	public StudentInfo create(

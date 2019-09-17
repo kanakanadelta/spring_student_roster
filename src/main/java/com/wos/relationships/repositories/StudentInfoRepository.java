@@ -26,4 +26,11 @@ public interface StudentInfoRepository extends CrudRepository<StudentInfo, Long>
 	@Query(value="SELECT * FROM studentInfos WHERE studentId = ?1", nativeQuery=true)
 	StudentInfo findByStudentId(Long studentId);
 	
+//	@Query(value="SELECT * FROM studentInfos JOIN students ON students.id = studentInfos.studentId", 
+//			nativeQuery=true)
+//	List<Object[]> findAllJoined();
+	
+	@Query(value="SELECT i, s FROM StudentInfo i JOIN i.student s")
+	List<Object[]> findAllJoined();
+	
 }
