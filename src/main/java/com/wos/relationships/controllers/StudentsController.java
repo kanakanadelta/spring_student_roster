@@ -9,6 +9,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -36,8 +37,7 @@ public class StudentsController {
 	//1. INDEX - Show all information onto the page //
 	@GetMapping("/students")
 	public String index(
-			Model model, 
-			@ModelAttribute("student")Student student
+			Model model
 			) {
 		List<Student> students = studentService.allStudents();
 		model.addAttribute("students", students);
@@ -79,7 +79,7 @@ public class StudentsController {
 		}
 	}
 	
-	//CREATE CONTACT
+	//4. CREATE CONTACT
 	@PostMapping("/contacts")
 	public String createContact(@Valid @ModelAttribute("studentInfo") StudentInfo studentInfo, BindingResult result) {
 		if(result.hasErrors()) {
@@ -88,6 +88,14 @@ public class StudentsController {
 			infoService.create(studentInfo);
 			return "redirect:/students";
 		}
+	}
+	
+	//5. SHOW STUDENT
+	@GetMapping("/students/{id}")
+	public String showStudent(@PathVariable(value="id")Long id, Model model) {
+		Student student = studentService.findStudent(id);
+		model.addAttribute("student", student);
+		return "showstudent.jsp";
 	}
 	
 	// END CONTROLLER 

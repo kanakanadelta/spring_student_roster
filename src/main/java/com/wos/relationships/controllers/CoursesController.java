@@ -10,6 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.wos.relationships.models.Course;
@@ -42,6 +43,7 @@ public class CoursesController {
 	}
 	
 	// CREATE - create new course
+	@PostMapping("")
 	public String create(@Valid @ModelAttribute("course")Course course, BindingResult result) {
 		if(result.hasErrors()) {
 			return "newcourse.jsp";

@@ -10,6 +10,14 @@
 <title>Course View</title>
 </head>
 <body>
-
+	<h1>Add New Course</h1>
+	<br />
+	<form:form action="/courses" method="POST" modelAttribute="course">
+		<form:label path="name">Name:</form:label>
+		<form:input path="name" />
+		<br />
+		<form:errors path="name" />
+		<input type="submit" value="Submit"/>
+	</form:form>
 </body>
 </html>
