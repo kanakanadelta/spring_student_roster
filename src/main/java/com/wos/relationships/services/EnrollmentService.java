@@ -40,7 +40,23 @@ public class EnrollmentService {
 		return enrollRepo.save(enrollment);
 	}
 	
+	//drop enrollment by its entity
+	public void dropEnrollmentByEntity(Enrollment enrollment) {
+		enrollRepo.delete(enrollment);
+		return;
+	}
+	
+	//drop a course (by studentId and courseId)
+	public void dropEnrollment(Long studentId, Long courseId) {
+		enrollRepo.deleteEnrollment(studentId, courseId);
+		return;
+	}
+	
 	//enrollment queries
+	
+	public Enrollment getStudentEnrollment(Long studentId, Long courseId) {
+		return enrollRepo.findSpecificEnrollment(studentId, courseId);
+	}
 	
 	public List<Object> getStudentCourses(Long studentId) {
 		List<Object> courses = enrollRepo.findStudentEnrollments(studentId);
@@ -50,6 +66,7 @@ public class EnrollmentService {
 	public List<Object> getStudentNoCourses(Long studentId) {
 		return enrollRepo.findStudentNoEnrollments(studentId);
 	}
+	
 	
 	// END SERVICES
 }

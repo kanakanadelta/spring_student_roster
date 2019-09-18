@@ -46,6 +46,13 @@
 							<c:out value="${eC[2]}" />
 						</a>
 					</td>
+					<td>
+						<form action="/students/${student.id}/drop" method="POST">
+							<input type="hidden" name="_method" value="delete"/>
+							<input type="hidden" name="course" value="${eC[0]}"/>
+							<input type="submit" value="Submit"/>
+						</form>
+					</td>
 				</tr>
 			</c:forEach>
 		</tbody>
