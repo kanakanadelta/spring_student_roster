@@ -12,9 +12,14 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
+import com.wos.relationships.models.Course;
+import com.wos.relationships.models.Enrollment;
 import com.wos.relationships.models.Student;
 import com.wos.relationships.models.StudentInfo;
+import com.wos.relationships.services.CourseService;
+import com.wos.relationships.services.EnrollmentService;
 import com.wos.relationships.services.StudentInfoService;
 import com.wos.relationships.services.StudentService;
 
@@ -25,13 +30,19 @@ public class StudentsController {
 	// Dependency Injection //
 	public final StudentService studentService;
 	public final StudentInfoService infoService;
+	public final CourseService courseService;
+	public final EnrollmentService enrollService;
 	
 	public StudentsController (
 			StudentService studentService,
-			StudentInfoService infoService
+			StudentInfoService infoService,
+			CourseService courseService,
+			EnrollmentService enrollService
 			) {
 		this.studentService = studentService;
 		this.infoService = infoService;
+		this.courseService = courseService;
+		this.enrollService = enrollService;
 	}
 	
 	//1. INDEX - Show all information onto the page //
@@ -92,10 +103,41 @@ public class StudentsController {
 	
 	//5. SHOW STUDENT
 	@GetMapping("/students/{id}")
-	public String showStudent(@PathVariable(value="id")Long id, Model model) {
+	public String showStudent(
+			@PathVariable(value="id")Long id, 
+			@ModelAttribute("enrollment") Enrollment enrollment, 
+			Model model
+			) {
 		Student student = studentService.findStudent(id);
 		model.addAttribute("student", student);
+		
+		List<Object> courses = enrollService.getStudentNoCourses(id);
+		model.addAttribute("courses", courses);
+
+		
+		List<Object> enrolledCourses = enrollService.getStudentCourses(id);
+		model.addAttribute("enrolledCourses", enrolledCourses);
+//		System.out.println(enrolledCourses.toString());
 		return "showstudent.jsp";
+	}
+	
+	// ENROLLMENTS AND COURSES:
+	
+	
+	// CREATE relationship - Enroll students to courses:
+	@PostMapping("/students/{studentId}/add")
+	public String addEnrollment(
+			@PathVariable(value="studentId")Long studentId, 
+			@RequestParam("course")Long courseId, 
+			@ModelAttribute("enrollment")Enrollment enrollment
+			) {
+		Student student = studentService.findStudent(studentId);
+		Course course = courseService.getCourse(courseId);
+		
+		enrollment.setStudent(student);
+		enrollment.setCourse(course);
+		enrollService.enrollStudentorUpdateEnrollment(enrollment);
+		return "redirect:/students/{studentId}";
 	}
 	
 	// END CONTROLLER 

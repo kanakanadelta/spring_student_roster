@@ -11,5 +11,44 @@
 </head>
 <body>
 	<h1><c:out value="${student.firstName}" /> <c:out value="${student.lastName}" /></h1>
+	<a href="/students">Go back to view all students</a>
+	<br />
+	<br />
+	<form:form action="/students/${student.id}/add" method="POST" modelAttribute="enrollment">
+		<form:select name="course" path="course">
+			<c:forEach items="${courses}" var="c">
+				<form:option value="${c[0]}">
+					<c:out value="${c[2]}" />
+				</form:option>
+			</c:forEach>
+		</form:select>
+		<input type="submit" value="Submit">
+	</form:form>
+	
+	<h2> 
+		Courses 
+		<c:out value="${student.firstName}"/> 
+		<c:out value="${student.lastName}"/> 
+		is enrolled in:
+	</h2>
+	<table>
+		<thead>
+			<tr>
+				<th>Course Name</th>
+				<th>Action</th>
+			</tr>
+		</thead>
+		<tbody>
+			<c:forEach items="${enrolledCourses}" var="eC">
+				<tr>
+					<td>
+						<a href="/courses">
+							<c:out value="${eC[2]}" />
+						</a>
+					</td>
+				</tr>
+			</c:forEach>
+		</tbody>
+	</table>
 </body>
 </html>
