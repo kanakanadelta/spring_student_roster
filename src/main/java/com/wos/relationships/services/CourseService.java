@@ -33,4 +33,21 @@ public class CourseService {
 		}
 	}
 	
+	// CREATE a course 
+	public Course createOrUpdateCourse(Course course) {
+		return courseRepo.save(course);
+	}
+	
+	// DELETE a course (by id)
+	public Course deleteCourse(Long id) {
+		Optional<Course> optCourse = courseRepo.findById(id);
+		if(optCourse.isPresent()) {
+			Course course = optCourse.get();
+			courseRepo.delete(course);
+			return course;
+		} else {
+			return null;
+		}
+	}
+	
 }

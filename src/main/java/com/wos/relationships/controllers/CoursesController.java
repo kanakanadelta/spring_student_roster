@@ -1,7 +1,13 @@
 package com.wos.relationships.controllers;
 
+import java.util.List;
+
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,9 +27,28 @@ public class CoursesController {
 	
 	// ROUTES //
 	
+	// INDEX - show all courses
+	@GetMapping("")
+	public String index(Model model) {
+		List<Course> courses = courseService.allCourses();
+		model.addAttribute("courses", courses);
+		return "courses.jsp";
+	}
+	
+	// NEW - page for creating new course
 	@GetMapping("/new")
 	public String newCourse(@ModelAttribute("course")Course course) {
 		return "newcourse.jsp";
+	}
+	
+	// CREATE - create new course
+	public String create(@Valid @ModelAttribute("course")Course course, BindingResult result) {
+		if(result.hasErrors()) {
+			return "newcourse.jsp";
+		} else {
+			courseService.createOrUpdateCourse(course);
+			return "redirect:/courses";
+		}
 	}
 	
 }
