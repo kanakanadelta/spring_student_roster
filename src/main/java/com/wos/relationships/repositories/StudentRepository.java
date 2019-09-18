@@ -28,5 +28,9 @@ public interface StudentRepository extends CrudRepository<Student, Long>{
 	
 	@Query(value="SELECT * FROM students WHERE id = ?1", nativeQuery = true)
 	Optional<Student> findOneByNative(Long id);
+	
+	@Query(value="SELECT * FROM students WHERE students.id IN (SELECT enrollments.student_id FROM enrollments WHERE enrollments.course_id=?1);", 
+			nativeQuery=true)
+	List<Student> findStudentsByEnrollment(Long courseId);
 
 }

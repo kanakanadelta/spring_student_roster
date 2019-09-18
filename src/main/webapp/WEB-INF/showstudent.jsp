@@ -42,7 +42,7 @@
 			<c:forEach items="${enrolledCourses}" var="eC">
 				<tr>
 					<td>
-						<a href="/courses">
+						<a href="/courses/${eC[0]}">
 							<c:out value="${eC[2]}" />
 						</a>
 					</td>
@@ -50,7 +50,7 @@
 						<form action="/students/${student.id}/drop" method="POST">
 							<input type="hidden" name="_method" value="delete"/>
 							<input type="hidden" name="course" value="${eC[0]}"/>
-							<input type="submit" value="Submit"/>
+							<input type="submit" value="Delete"/>
 						</form>
 					</td>
 				</tr>

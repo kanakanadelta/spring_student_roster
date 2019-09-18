@@ -152,8 +152,7 @@ public class StudentsController {
 		Enrollment enrollment = enrollService.getStudentEnrollment(studentId, courseId);
 //		enrollService.dropEnrollment(studentId, courseId);
 		enrollService.dropEnrollmentByEntity(enrollment);
-		
-		
+
 		return "redirect:/students/{studentId}";
 	}
 	

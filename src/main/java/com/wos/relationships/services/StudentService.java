@@ -80,5 +80,9 @@ public class StudentService {
 		return studentRepo.findByDormIsNullAndFirstNameNotNull();
 	}
 	
+	public List<Student> getStudentsByEnrollment(Long courseId) {
+		return studentRepo.findStudentsByEnrollment(courseId);
+	}
+	
 	// END SERVICES 
 }

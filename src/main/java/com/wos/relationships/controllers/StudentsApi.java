@@ -31,6 +31,12 @@ public class StudentsApi {
 		return studentService.allStudents();
 	}
 	
+	@GetMapping("/students/enrolledTo")
+	public List<Student> enrolledToClass(@RequestParam(value="courseId") Long courseId) {
+		List<Student> enrolledStudents = studentService.getStudentsByEnrollment(courseId);
+		return enrolledStudents;
+	}
+	
 	// CREATE 
 	@PostMapping("/students/create")
 	public Student create(

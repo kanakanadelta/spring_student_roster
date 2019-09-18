@@ -50,4 +50,5 @@ public interface EnrollmentRepository extends CrudRepository<Enrollment, Long>{
 			+ "AND course_id = ?2", 
 			nativeQuery=true)
 	Enrollment findSpecificEnrollment(Long studentId, Long courseId);
+
 }
