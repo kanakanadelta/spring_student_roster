@@ -33,7 +33,11 @@
 			<tbody>
 				<c:forEach items="${students}" var="student">
 					<tr>
-						<td>${student.firstName} ${student.lastName}</td>
+						<td>
+							<a href="/students/${student.id}">
+								${student.firstName} ${student.lastName}
+							</a>
+						</td>
 						<td>${student.studentInfo.student.studentInfo.student.age}</td>
 						<td>${student.studentInfo.address}</td>
 						<td>${student.studentInfo.city}</td>
